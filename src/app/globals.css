@@ -1,0 +1,292 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Identidad "Libro mayor": papel, tinta y sello rojo */
+:root {
+  --background: #f2ede0;
+  --foreground: #16130d;
+  --card: #f8f4e9;
+  --secondary: #e8e0cb;
+  --muted-foreground: #6a604c;
+  --border: #d5cbae;
+  --accent: #b0281d;
+  --accent-foreground: #f8f4e9;
+  --positive: #3b6a47;
+
+  /* Paneles impresos en tinta (se invierten en modo tinta) */
+  --panel: #16130d;
+  --panel-foreground: #efe9d8;
+  --panel-muted: #9d937b;
+  --panel-border: rgba(239, 233, 216, 0.14);
+
+  --area-conta: #2c271d;
+  --area-infra: #3b6a47;
+  --area-abast: #b0281d;
+  --area-gh: #a67c27;
+  --area-cf: #4f6273;
+}
+
+.dark {
+  --background: #100e0a;
+  --foreground: #efe9d8;
+  --card: #17140e;
+  --secondary: #1e1a12;
+  --muted-foreground: #a0967d;
+  --border: #2f2a1e;
+  --accent: #e0584a;
+  --accent-foreground: #100e0a;
+  --positive: #7cb38a;
+
+  --panel: #efe9d8;
+  --panel-foreground: #16130d;
+  --panel-muted: #6a604c;
+  --panel-border: rgba(22, 19, 13, 0.16);
+
+  --area-conta: #d8cfb6;
+  --area-infra: #7cb38a;
+  --area-abast: #e0584a;
+  --area-gh: #d2a54a;
+  --area-cf: #8aa3b8;
+}
+
+/* Secciones impresas sobre el panel: todos los tokens se invierten */
+.on-panel {
+  --background: var(--panel);
+  --foreground: var(--panel-foreground);
+  --muted-foreground: var(--panel-muted);
+  --border: var(--panel-border);
+  --secondary: color-mix(in srgb, var(--panel-foreground) 7%, var(--panel));
+  --card: color-mix(in srgb, var(--panel-foreground) 4%, var(--panel));
+  --accent: #e0584a;
+  --accent-foreground: #16130d;
+  --positive: #7cb38a;
+  --area-conta: #d8cfb6;
+  --area-infra: #7cb38a;
+  --area-abast: #e0584a;
+  --area-gh: #d2a54a;
+  --area-cf: #8aa3b8;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.dark .on-panel {
+  --accent: #b0281d;
+  --accent-foreground: #f8f4e9;
+  --positive: #3b6a47;
+  --area-conta: #2c271d;
+  --area-infra: #3b6a47;
+  --area-abast: #b0281d;
+  --area-gh: #a67c27;
+  --area-cf: #4f6273;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-secondary: var(--secondary);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-positive: var(--positive);
+  --color-panel: var(--panel);
+  --color-panel-foreground: var(--panel-foreground);
+  --color-panel-muted: var(--panel-muted);
+  --color-panel-border: var(--panel-border);
+  --font-sans: var(--font-inter-tight), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  * {
+    border-color: var(--border);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); }
+::-webkit-scrollbar-thumb:hover { background: var(--muted-foreground); }
+
+/* En components para que las utilidades de Tailwind puedan sobrescribirlas */
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 380;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+
+  .display em,
+  .serif-italic {
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Sello de goma: borde irregular gracias al filtro #tinta del layout */
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    border: 2px solid currentColor;
+    border-radius: 4px;
+    padding: 0.3em 0.7em 0.25em;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+    filter: url(#tinta);
+  }
+
+  .stamp-lg {
+    border-width: 3px;
+    font-size: clamp(0.9rem, 1.6vw, 1.35rem);
+    padding: 0.4em 0.85em 0.35em;
+    background: color-mix(in srgb, var(--background) 82%, transparent);
+    box-shadow: inset 0 0 0 3px var(--background), inset 0 0 0 5px currentColor;
+  }
+
+  .stamp-positive { color: var(--positive); }
+  .stamp-muted { color: var(--muted-foreground); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border: 1px solid var(--foreground);
+    padding: 0.8rem 1.1rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+  }
+
+  .btn:hover {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  .btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .btn-solid {
+    background: var(--foreground);
+    color: var(--background);
+  }
+
+  .btn-solid:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  /* Papel rayado */
+  .lined {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0 23px,
+      color-mix(in srgb, var(--foreground) 8%, transparent) 23px 24px
+    );
+    background-attachment: local;
+  }
+
+  /* Rayado diagonal para "tiempo manual" */
+  .hatch {
+    background-image: repeating-linear-gradient(135deg, currentColor 0 1.5px, transparent 1.5px 6px);
+  }
+
+  /* Línea de puntos entre concepto y valor, como en un índice */
+  .leader {
+    flex: 1;
+    min-width: 1.5rem;
+    border-bottom: 1px dotted color-mix(in srgb, var(--foreground) 35%, transparent);
+    transform: translateY(-0.3em);
+  }
+
+  .link-ink {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-ink:hover {
+    background-size: 100% 1px;
+  }
+
+  /* Foto impresa en dos tintas (filtro #duotono del layout) */
+  .duotone {
+    filter: url(#duotono);
+  }
+}
+
+/* Grano de papel */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+.dark .grain::before {
+  opacity: 0.07;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
