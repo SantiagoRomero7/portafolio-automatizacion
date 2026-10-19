@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useRef, useState } from "react"
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion"
+import { roughCount } from "@/data/automations"
 import { clock } from "@/lib/format"
 import { EASE, MaskLine, Page, Stamp } from "@/components/ui"
 import { cn } from "@/lib/utils"
@@ -28,7 +29,7 @@ export function Hero() {
   return (
     <section id="inicio" ref={ref} className="relative h-[230svh]">
       <div className="sticky top-0 h-svh overflow-hidden">
-        <Page className="flex h-full flex-col pb-5 pt-20 sm:pb-8">
+        <Page className="inicio-pane flex h-full flex-col pb-5 pt-20 sm:pb-8">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -41,7 +42,8 @@ export function Hero() {
           </motion.div>
 
           <div className="relative grid flex-1 grid-cols-12 content-center items-center gap-6 py-6">
-            <h1 className="display col-span-12 text-[10.2vw] md:col-span-8 md:text-[clamp(2.8rem,6.6vw,8.5rem)]">
+            {/* El titular se mide también contra el alto: en pantallas bajas manda el svh */}
+            <h1 className="display col-span-12 text-[min(10.2vw,7.2svh)] md:col-span-8 md:text-[min(clamp(2.8rem,6.6vw,8.5rem),9svh)]">
               <MaskLine delay={0.15}>Una semana</MaskLine>
               <MaskLine delay={0.25}>de trabajo manual,</MaskLine>
               <MaskLine delay={0.35}>
@@ -54,22 +56,22 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
-              className="col-span-12 flex items-center gap-4 md:hidden"
+              className="inicio-retrato col-span-12 flex items-center gap-4 md:hidden"
             >
               <div className="relative h-20 w-16 shrink-0 overflow-hidden bg-secondary">
                 <Image src="/perfil.png" alt="" fill sizes="64px" className="duotone object-cover object-[50%_18%]" />
               </div>
               <p className="text-sm leading-snug text-muted-foreground">
-                Santiago Romero. Automatizo procesos en Cajasan: 25 herramientas entregadas.
+                Santiago Romero. Automatizo procesos en Cajasan: {roughCount} herramientas entregadas.
               </p>
             </motion.div>
 
-            <figure className="relative col-span-4 hidden justify-self-end md:block">
+            <figure className="inicio-foto relative col-span-4 hidden justify-self-end md:block">
               <motion.div
                 initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
                 animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
                 transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
-                className="relative aspect-[3/4] h-[52svh] overflow-hidden bg-secondary"
+                className="inicio-figura relative aspect-[3/4] h-[52svh] overflow-hidden bg-secondary"
               >
                 <Image
                   src="/perfil.png"
@@ -106,14 +108,14 @@ export function Hero() {
                 </div>
                 <motion.div
                   className={cn(
-                    "tabular font-mono text-[13.5vw] leading-none tracking-[-0.05em] transition-colors duration-500 md:text-[clamp(3rem,6.6vw,6.25rem)]",
+                    "tabular font-mono text-[min(13.5vw,9svh)] leading-none tracking-[-0.05em] transition-colors duration-500 md:text-[min(clamp(3rem,6.6vw,6.25rem),10svh)]",
                     done && "text-accent",
                   )}
                 >
                   {clockText}
                 </motion.div>
               </div>
-              <p className="max-w-xs pb-1 text-sm leading-relaxed text-muted-foreground">
+              <p className="inicio-nota max-w-xs pb-1 text-sm leading-relaxed text-muted-foreground">
                 Caso real: consolidar las compras de Abastecimiento tomaba cerca de una semana. Hoy toma entre 5 y 15
                 segundos.
               </p>

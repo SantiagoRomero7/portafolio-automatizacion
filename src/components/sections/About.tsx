@@ -1,8 +1,7 @@
 "use client"
 
+import { areas } from "@/data/automations"
 import { MaskLine, Page, Reveal } from "@/components/ui"
-
-const units = ["Contabilidad", "Impuestos", "Infraestructura", "Abastecimiento", "Gestión Humana", "Control Financiero"]
 
 const principles = [
   {
@@ -25,7 +24,7 @@ export function About() {
       <Page>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <div className="kicker">06 — Sobre mí</div>
+            <div className="kicker">07 — Sobre mí</div>
             <blockquote className="display mt-6 text-[clamp(2.5rem,5.8vw,5.75rem)]">
               <MaskLine inView>La automatización</MaskLine>
               <MaskLine inView delay={0.08}>no reemplaza personas.</MaskLine>
@@ -47,7 +46,7 @@ export function About() {
             <div className="border-t border-border pt-5">
               <div className="kicker mb-3">Algunas de las áreas con las que trabajo</div>
               <p className="font-display text-xl leading-snug">
-                {units.join(" · ")} <em className="text-muted-foreground">y contando.</em>
+                {areas.join(" · ")} <em className="text-muted-foreground">y contando.</em>
               </p>
             </div>
           </Reveal>

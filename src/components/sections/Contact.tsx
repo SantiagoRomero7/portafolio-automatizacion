@@ -28,7 +28,7 @@ export function Contact() {
   return (
     <section id="contacto" className="relative overflow-hidden pb-8 pt-28 md:pt-40">
       <Page>
-        <div className="kicker">07 — Contacto</div>
+        <div className="kicker">08 — Contacto</div>
         <h2 className="display mt-6 text-[clamp(2.6rem,8vw,8.75rem)]">
           <MaskLine inView>¿Qué proceso le está</MaskLine>
           <MaskLine inView delay={0.08}>robando horas</MaskLine>

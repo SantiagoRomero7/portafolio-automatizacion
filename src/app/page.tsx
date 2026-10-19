@@ -7,6 +7,7 @@ import { Archive } from "@/components/sections/Archive"
 import { Cases } from "@/components/sections/Cases"
 import { Demo } from "@/components/sections/Demo"
 import { Method } from "@/components/sections/Method"
+import { Trace } from "@/components/sections/Trace"
 import { About } from "@/components/sections/About"
 import { Contact } from "@/components/sections/Contact"
 
@@ -22,6 +23,7 @@ export default function Home() {
         <Cases />
         <Demo />
         <Method />
+        <Trace />
         <About />
         <Contact />
       </main>

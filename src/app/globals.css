@@ -25,6 +25,7 @@
   --area-abast: #b0281d;
   --area-gh: #a67c27;
   --area-cf: #4f6273;
+  --area-teso: #6b4759;
 }
 
 .dark {
@@ -48,6 +49,7 @@
   --area-abast: #e0584a;
   --area-gh: #d2a54a;
   --area-cf: #8aa3b8;
+  --area-teso: #c3a0ae;
 }
 
 /* Secciones impresas sobre el panel: todos los tokens se invierten */
@@ -66,6 +68,7 @@
   --area-abast: #e0584a;
   --area-gh: #d2a54a;
   --area-cf: #8aa3b8;
+  --area-teso: #c3a0ae;
   background: var(--background);
   color: var(--foreground);
 }
@@ -79,6 +82,7 @@
   --area-abast: #b0281d;
   --area-gh: #a67c27;
   --area-cf: #4f6273;
+  --area-teso: #6b4759;
 }
 
 @theme inline {
@@ -263,6 +267,66 @@
   /* Foto impresa en dos tintas (filtro #duotono del layout) */
   .duotone {
     filter: url(#duotono);
+  }
+}
+
+/*
+ * La portada y "La cuenta" viven dentro de paneles de alto fijo (h-svh). En
+ * pantallas bajas —un móvil en horizontal, un portátil pequeño— el recurso
+ * escaso es el alto, no el ancho: lo esencial se queda y lo accesorio se retira
+ * antes de que algo quede cortado. Las medidas van en svh para que acompañen.
+ */
+@media (max-height: 700px) {
+  .inicio-figura {
+    height: 40svh;
+  }
+}
+
+@media (max-height: 620px) {
+  .inicio-pane {
+    padding-top: 3.75rem;
+  }
+
+  .semana-nota {
+    display: none;
+  }
+
+  /* Menos filas de calendario: el alto es lo que falta, el ancho sobra */
+  .semana-rejilla {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-height: 560px) {
+  .inicio-pane {
+    padding-top: 3.5rem;
+  }
+
+  .inicio-foto {
+    display: none;
+  }
+
+  .semana-pane {
+    padding-top: 3.5rem;
+    padding-bottom: 0.75rem;
+    row-gap: 0.75rem;
+  }
+
+  .semana-cal {
+    gap: 0.5rem;
+  }
+
+  .semana-rejilla {
+    column-gap: 1.25rem;
+    row-gap: 0.5rem;
+  }
+}
+
+@media (max-height: 460px) {
+  .inicio-retrato,
+  .inicio-nota,
+  .semana-contador {
+    display: none;
   }
 }
 

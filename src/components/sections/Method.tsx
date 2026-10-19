@@ -81,8 +81,8 @@ export function Method() {
           <Reveal className="space-y-3 lg:col-span-4 lg:pb-3">
             <div className="kicker">05 — Método</div>
             <p className="leading-relaxed text-muted-foreground">
-              Cuatro pasos, siempre en el mismo orden. La cifra al lado de cada herramienta es en cuántas de las{" "}
-              {automations.length} entregas aparece; tócala para filtrar el archivo.
+              Cuatro pasos, siempre en el mismo orden. La cifra al lado de cada herramienta es en cuántas entregas
+              aparece; tócala para filtrar el archivo.
             </p>
           </Reveal>
         </div>

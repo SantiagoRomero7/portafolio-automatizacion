@@ -5,7 +5,7 @@
 # Una semana de trabajo manual, en 15 segundos.
 
 **Portafolio de Santiago Romero, desarrollador de automatizaciones en Cajasan.**<br />
-25 herramientas entregadas, contadas con los tiempos reales que reportó cada área.
+Más de 30 herramientas entregadas en seis unidades de negocio, contadas con los tiempos reales que reportó cada área.
 
 [![CI](https://github.com/SantiagoRomero7/portafolio-automatizacion/actions/workflows/ci.yml/badge.svg)](https://github.com/SantiagoRomero7/portafolio-automatizacion/actions/workflows/ci.yml)
 ![Next.js 16](https://img.shields.io/badge/Next.js-16-16130d?logo=nextdotjs&logoColor=white)
@@ -27,7 +27,7 @@ Mi trabajo es convertir procesos manuales de horas o días en segundos, así que
 visual sale del mundo donde viven esas herramientas, la contabilidad: papel, tinta, un libro mayor y un sello rojo de
 «procesado». Y cada cifra que aparece en pantalla sale del registro de entregas, no de la imaginación.
 
-> Sumadas, una ejecución de cada herramienta equivale a **tres semanas de trabajo manual**.
+> Sumadas, una ejecución de cada herramienta equivale a **cuatro semanas de trabajo manual**.
 > Automatizadas, requieren **poco más de una hora** de atención humana.
 
 ## Recorrido
@@ -35,11 +35,12 @@ visual sale del mundo donde viven esas herramientas, la contabilidad: papel, tin
 | Sección | Qué pasa |
 | --- | --- |
 | **Portada** | Un reloj que, con el scroll, baja de `40:00:00` a `00:00:15`: el caso real del Consolidador de Compras. Al llegar, cae un sello sobre la foto. |
-| **La cuenta** | Las 25 herramientas dibujadas como jornadas de 8 horas. Al avanzar, cada tarea se automatiza y el calendario se vacía en vivo. |
-| **El Archivo** | El registro completo como libro contable: el *antes* tachado en rojo, el *después* al lado. Filtros por área, búsqueda, orden y totales que se recalculan. Cada fila se abre en un diagrama de entradas → proceso → salidas. |
+| **La cuenta** | Todas las herramientas dibujadas como jornadas de 8 horas. Al avanzar, cada tarea se automatiza y el calendario se vacía en vivo. |
+| **El Archivo** | El registro completo como libro contable: el *antes* tachado en rojo, el *después* al lado. Filtros por área y por tipo de arranque, búsqueda, orden y totales que se recalculan. Cada fila se abre en un diagrama de entradas → proceso → salidas. |
 | **Casos** | Cinco herramientas contadas a fondo: el problema, cómo se hacía, qué construí y el detalle técnico. |
 | **Demo** | La lógica real del *Control de Consecutivos*, portada a JavaScript. Pegas folios o arrastras un `.txt`/`.csv` y detecta faltantes y duplicados en milisegundos, sin salir del navegador. |
 | **Método** | Cuatro pasos de trabajo. Cada herramienta indica en cuántas entregas aparece y, al tocarla, filtra el archivo. |
+| **Trazabilidad** | Cómo se sostiene el registro: las tres llamadas con que cada corrida deja asiento en la auditoría central, las cifras de cobertura y los tipos de arranque, que también filtran el archivo. |
 | **Índice** | Paleta de comandos con <kbd>Ctrl</kbd> <kbd>K</kbd> / <kbd>⌘</kbd> <kbd>K</kbd> para saltar a cualquier sección, herramienta o acción. |
 | **Papel / Tinta** | Tema claro y oscuro; en modo tinta los paneles se imprimen en papel. |
 
@@ -58,9 +59,16 @@ visual sale del mundo donde viven esas herramientas, la contabilidad: papel, tin
 
 - **Ningún número decorativo.** Todo sale de [`src/data/automations.ts`](src/data/automations.ts), la transcripción
   del registro de entregas. Los totales, el calendario, el índice y el método se calculan a partir de ahí.
+- **Redondo por fuera, exacto por dentro.** La prosa dice «más de 30», una cifra que no envejece con cada entrega
+  nueva; el archivo mantiene el conteo exacto, fila por fila, con sus totales recalculados según los filtros. Quien
+  quiera el número lo cuenta; quien solo pasa, lee el orden de magnitud.
 - **Confidencialidad.** Solo se nombra a Cajasan. Los sistemas internos aparecen con nombres genéricos (*el ERP*,
-  *la maestra de personas*, *el sistema POS*), sin códigos de cuenta, nombres de archivo ni datos reales. Los datos de
-  la demo son sintéticos. El código de las herramientas vive en la red interna; este repositorio es solo el portafolio.
+  *la maestra de personas*, *el sistema POS*, *el ente de vigilancia*), sin códigos de cuenta, nombres de archivo,
+  entidades bancarias, rutas de red ni datos reales. Los datos de la demo son sintéticos. El código de las herramientas
+  vive en la red interna; este repositorio es solo el portafolio.
+- **Trazabilidad antes que adjetivos.** En vez de afirmar que las herramientas son confiables, la sección *Trazabilidad*
+  muestra el mecanismo: cada corrida pide un pase de un solo uso, registra inicio y fin contra el log central de
+  auditoría y se cierra en un `finally`. La cobertura se cuenta sola desde los datos, y dice **32 de 34**, no «todas».
 - **Identidad «libro mayor».** Fraunces para titulares, Inter Tight para texto e IBM Plex Mono para cifras. Paleta de
   papel `#f2ede0`, tinta `#16130d` y sello `#b0281d`. Los sellos tienen bordes irregulares gracias a un filtro SVG
   (`feTurbulence` + `feDisplacementMap`) y la foto se imprime en dos tintas con otro filtro SVG.
@@ -91,9 +99,9 @@ src/
 │   ├── Nav.tsx             # Barra superior, progreso de lectura y folio lateral
 │   ├── CommandPalette.tsx  # Índice con Ctrl/⌘ + K
 │   ├── ui.tsx              # Sello, revelados y titulares con máscara
-│   └── sections/           # Hero, Week, Archive, Cases, Demo, Method, About, Contact
+│   └── sections/           # Hero, Week, Archive, Cases, Demo, Method, Trace, About, Contact
 ├── data/
-│   ├── automations.ts      # Registro de las 25 herramientas (fuente de todas las cifras)
+│   ├── automations.ts      # Registro de entregas (fuente de todas las cifras)
 │   ├── cases.ts            # Los cinco casos de estudio
 │   └── contact.ts
 └── lib/
@@ -131,15 +139,17 @@ Cada entrega es un objeto en [`src/data/automations.ts`](src/data/automations.ts
 
 ```ts
 {
-  n: 26,
+  n: 35,
   id: "mi-herramienta",
   name: "Mi herramienta",
   area: "Contabilidad",
+  tipo: "DAPP",         // cómo arranca: DAPP, ATT, BOT o CLI
   what: "Qué hace, en una o dos frases.",
   before: "~2 h",       // como lo reportó el área
   after: "10 s",
   beforeMin: 120,       // minutos de trabajo humano antes…
   afterMin: 10 / 60,    // …y después
+  audited: true,        // registra cada corrida en la auditoría central
   stack: ["Python", "openpyxl"],
   status: "Entregado",
   inputs: ["Archivo de entrada"],
@@ -147,7 +157,9 @@ Cada entrega es un objeto en [`src/data/automations.ts`](src/data/automations.ts
 }
 ```
 
-Con eso, la portada, *La cuenta*, el archivo, sus totales, el índice y el método se actualizan solos.
+Con eso, la portada, *La cuenta*, el archivo, sus totales, la trazabilidad, el índice y el método se actualizan solos.
+`tipo` y `audited` se omiten en las entregas que no viven en un repositorio de unidad, y la cobertura que muestra el
+sitio baja sola.
 
 ## Licencia
 

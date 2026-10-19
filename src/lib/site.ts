@@ -9,8 +9,9 @@ export const sections = [
   { id: "casos", n: "03", label: "Casos" },
   { id: "demo", n: "04", label: "Demo" },
   { id: "metodo", n: "05", label: "Método" },
-  { id: "sobre-mi", n: "06", label: "Sobre mí" },
-  { id: "contacto", n: "07", label: "Contacto" },
+  { id: "trazabilidad", n: "06", label: "Trazabilidad" },
+  { id: "sobre-mi", n: "07", label: "Sobre mí" },
+  { id: "contacto", n: "08", label: "Contacto" },
 ] as const
 
 /* ---------- Eventos entre secciones ---------- */
@@ -19,6 +20,7 @@ export const EVT = {
   openIndex: "indice:abrir",
   openRow: "archivo:abrir",
   filterStack: "archivo:stack",
+  filterTipo: "archivo:tipo",
   theme: "tema",
 } as const
 

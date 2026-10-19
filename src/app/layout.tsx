@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import { Fraunces, Inter_Tight, IBM_Plex_Mono } from "next/font/google"
+import { roughCount } from "@/data/automations"
 import "./globals.css"
 
 const fraunces = Fraunces({
@@ -26,12 +27,11 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "Santiago Romero — Una semana de trabajo, en 15 segundos",
-  description:
-    "Desarrollador de automatizaciones en Cajasan. 25 herramientas entregadas que convierten procesos manuales de horas o días en segundos.",
+  description: `Desarrollador de automatizaciones en Cajasan. ${roughCount} herramientas entregadas que convierten procesos manuales de horas o días en segundos, cada una con su ejecución auditada.`,
   keywords: ["automatización", "RPA", "Python", "Power Automate", "Bucaramanga", "Santiago Romero"],
   openGraph: {
     title: "Santiago Romero — Automatización de procesos",
-    description: "Tres semanas de trabajo manual, comprimidas en poco más de una hora.",
+    description: "Cuatro semanas de trabajo manual, comprimidas en poco más de una hora.",
     images: ["/perfil.png"],
     locale: "es_CO",
     type: "website",

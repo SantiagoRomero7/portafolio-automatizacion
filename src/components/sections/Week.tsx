@@ -62,12 +62,12 @@ export function Week() {
   const current = ordered[Math.min(done, N - 1)]
 
   const counter = (
-    <div className="border-t border-border pt-4">
+    <div className="border-t border-border pt-2 sm:pt-4">
       <div className="kicker">Tiempo manual restante</div>
-      <motion.div className="tabular mt-2 font-mono text-[clamp(2rem,4.4vw,4.1rem)] leading-none tracking-[-0.04em]">
+      <motion.div className="tabular mt-2 font-mono text-[clamp(1.6rem,4.4vw,4.1rem)] leading-none tracking-[-0.04em]">
         {remainingText}
       </motion.div>
-      <div className="mt-4 min-h-[4.75rem]">
+      <div className="mt-2 min-h-[2.75rem] sm:mt-4 sm:min-h-[4.75rem]">
         <AnimatePresence mode="wait" initial={false}>
           {finished ? (
             <motion.div key="fin" initial={{ opacity: 0, scale: 1.6 }} animate={{ opacity: 1, scale: 1 }} className="inline-block -rotate-3">
@@ -102,13 +102,14 @@ export function Week() {
         trabajo manual; automatizadas requieren {fmtDur(totals.afterMin)} de atención humana.
       </p>
       <div className="sticky top-0 h-svh overflow-hidden" aria-hidden>
-        <Page className="grid h-full grid-rows-[auto_1fr] gap-6 pb-6 pt-20 lg:grid-cols-12 lg:grid-rows-1 lg:gap-12 lg:pb-10 lg:pt-24">
-          <div className="flex flex-col lg:col-span-4">
+        <Page className="semana-pane grid h-full grid-rows-[auto_1fr] gap-3 pb-4 pt-14 sm:gap-6 sm:pb-6 sm:pt-20 lg:grid-cols-12 lg:grid-rows-1 lg:gap-12 lg:pb-10 lg:pt-24">
+          <div className="flex min-h-0 flex-col lg:col-span-4">
             <div className="kicker">01 — La cuenta</div>
-            <h2 className="display mt-4 text-[clamp(2.1rem,4.3vw,4.4rem)]">
+            <h2 className="display mt-3 text-[clamp(1.6rem,4.3vw,4.4rem)] sm:mt-4">
               {WORDS[fullWeeks]} semanas de trabajo manual<span className="text-accent">.</span>
             </h2>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
+            {/* En pantallas pequeñas el alto es el recurso escaso: manda el calendario */}
+            <p className="semana-nota mt-3 hidden max-w-sm text-xs leading-relaxed text-muted-foreground sm:mt-4 sm:block sm:text-sm">
               {finished ? (
                 <>
                   Ahora caben en <strong className="text-foreground">{fmtDur(totals.afterMin)}</strong> de atención
@@ -116,31 +117,35 @@ export function Week() {
                 </>
               ) : (
                 <>
-                  Así se ven, sumadas, las {N} tareas antes de automatizarlas. Cada fila es una jornada de 8 horas.
+                  Así se ven, sumadas, las tareas antes de automatizarlas. Cada fila es una jornada de 8 horas.
                 </>
               )}
             </p>
             <div className="mt-auto hidden lg:block">{counter}</div>
           </div>
 
-          <div className="flex min-h-0 flex-col justify-center gap-5 lg:col-span-8">
-            <div className="grid grid-cols-2 gap-x-5 gap-y-5 sm:gap-x-10 lg:gap-y-8">
+          <div className="semana-cal flex min-h-0 flex-col justify-center gap-3 sm:gap-5 lg:col-span-8">
+            <div className="semana-rejilla grid grid-cols-2 gap-x-5 gap-y-2 sm:gap-x-10 sm:gap-y-5 lg:gap-y-8">
               {Array.from({ length: weeks }, (_, w) => (
                 <div key={w}>
-                  <div className="kicker mb-2 flex justify-between text-[10px]">
+                  <div className="kicker mb-1.5 flex justify-between text-[10px] sm:mb-2">
                     <span>Semana {w + 1}</span>
                     <span className="hidden sm:inline">8 h / día</span>
                   </div>
-                  <div className="space-y-1.5">
+                  <div className="flex flex-col gap-1 sm:gap-1.5">
                     {WEEKDAYS.map((label, d) => {
                       const day = w * 5 + d
                       const segs = segmentsByDay[day] ?? []
                       return (
                         <div key={label} className="flex items-center gap-2">
-                          <span className="w-3 font-mono text-[10px] text-muted-foreground">{label}</span>
+                          {/* leading-none: si no, la etiqueta fija el alto de la fila y la barra no puede encoger */}
+                          <span className="w-3 shrink-0 font-mono text-[10px] leading-none text-muted-foreground">
+                            {label}
+                          </span>
+                          {/* La barra se mide contra el alto de la pantalla: el calendario siempre cabe */}
                           <div
                             className={cn(
-                              "relative h-3.5 flex-1 outline outline-1 outline-border sm:h-5",
+                              "relative h-[clamp(0.4rem,1.9svh,1.25rem)] flex-1 outline outline-1 outline-border",
                               day >= usedDays && "opacity-40",
                             )}
                             style={{
@@ -163,7 +168,7 @@ export function Week() {
               Suma de una ejecución de cada herramienta, con los tiempos reportados por las áreas. Varias corren cada
               mes, cada quincena o cada día.
             </p>
-            <div className="lg:hidden">{counter}</div>
+            <div className="semana-contador lg:hidden">{counter}</div>
           </div>
         </Page>
       </div>

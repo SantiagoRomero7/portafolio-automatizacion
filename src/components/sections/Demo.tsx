@@ -152,13 +152,14 @@ export function Demo() {
     <section id="demo" className="relative border-t border-foreground py-28 md:py-40">
       <Page>
         <div className="grid items-end gap-8 lg:grid-cols-12">
-          <h2 className="display text-[clamp(2.8rem,7.4vw,7.5rem)] lg:col-span-7">
+          {/* La línea más larga tiene que caber en su máscara: una máscara, un renglón */}
+          <h2 className="display text-[clamp(2.4rem,5.9vw,5.75rem)] lg:col-span-8">
             <MaskLine inView>No es una animación.</MaskLine>
             <MaskLine inView delay={0.08}>
               <em className="text-accent">Es el algoritmo.</em>
             </MaskLine>
           </h2>
-          <Reveal className="space-y-3 lg:col-span-5 lg:pb-3">
+          <Reveal className="space-y-3 lg:col-span-4 lg:pb-3">
             <div className="kicker">04 — Demo en vivo</div>
             <p className="leading-relaxed">
               La lógica del Control de Consecutivos, escrita de nuevo en JavaScript. Pega tus folios (tipo, prefijo y

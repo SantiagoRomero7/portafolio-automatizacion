@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowDown } from "lucide-react"
-import { totals } from "@/data/automations"
+import { roughCount } from "@/data/automations"
 import { emit, EVT, useModKey } from "@/lib/site"
 import { Page, Reveal } from "@/components/ui"
 
@@ -20,7 +20,7 @@ export function Manifesto() {
             <p className="display text-[clamp(1.9rem,3.8vw,3.6rem)] leading-[1.04]">
               Trabajo en Cajasan con las áreas de soporte estratégico. Me siento con los equipos, encuentro dónde se les
               va el día y construyo la herramienta que se los devuelve.{" "}
-              <span className="text-muted-foreground">Llevo {totals.count} entregadas.</span>
+              <span className="text-muted-foreground">Llevo {roughCount} entregadas.</span>
             </p>
           </Reveal>
           <Reveal delay={0.1} className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
